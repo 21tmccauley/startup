@@ -45,15 +45,14 @@ CyberInsight Hub is a streamlined platform for cybersecurity enthusiasts to stay
 - Retrieve and display latest blog posts and comments
 
 ### WebSocket
-- Real-time vulnerability alert feed pushed to all connected clients
+- Real-time voting system on comments
 
 
 ## Design Sketches
 
-[Insert simple sketches or mockups for:
-1. Home page with latest blog posts
-2. Individual blog post page with comments
-3. User profile page
-4. Live chat interface]
+![Page1](https://github.com/user-attachments/assets/a6176cb0-06c5-4d73-ba91-97940446694a)
 
-This simplified specification outlines a focused cybersecurity blog platform that meets all the required technologies while remaining manageable in scope.
+![Page2](https://github.com/user-attachments/assets/a83316e1-875c-4bce-a0ac-8eafdf976943)
+
+
+![Page3](https://github.com/user-attachments/assets/6c1b8e4a-4d52-4cec-af63-a6328d403006)
