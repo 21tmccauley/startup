@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberInsight Hub - Home</title>
+    <title>CyberInsight Hub - Your Cybersecurity Knowledge Base</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
@@ -19,22 +20,48 @@
     </header>
 
     <main>
+        <section id="intro">
+            <h2>Welcome to CyberInsight Hub</h2>
+            <p>Stay informed and engaged with the latest cybersecurity threats and defense strategies.</p>
+        </section>
+
         <section id="latest-posts">
             <h2>Latest Blog Posts</h2>
             <!-- Placeholder for dynamically loaded blog posts -->
-            <div id="blog-posts-container"></div>
+            <div id="blog-posts-container">
+                <article>
+                    <h3>Understanding Ransomware Attacks</h3>
+                    <p>Posted on: <time datetime="2024-09-25">September 25, 2024</time></p>
+                    <p>Learn about the latest ransomware trends and how to protect your organization...</p>
+                </article>
+                <!-- More blog post placeholders -->
+            </div>
         </section>
 
         <section id="vulnerability-alerts">
             <h2>Real-time Vulnerability Alerts</h2>
             <!-- Placeholder for WebSocket-powered vulnerability feed -->
-            <div id="alert-feed"></div>
+            <div id="alert-feed">
+                <p>Critical vulnerability detected in popular CMS. Update immediately.</p>
+                <p>New zero-day exploit found in widely-used email client.</p>
+                <!-- More alert placeholders -->
+            </div>
+        </section>
+
+        <section id="community-stats">
+            <h2>Community Stats</h2>
+            <!-- Placeholder for database-driven community statistics -->
+            <ul>
+                <li>Total Members: 1,337</li>
+                <li>Active Discussions: 42</li>
+                <li>Articles Published: 256</li>
+            </ul>
         </section>
     </main>
 
     <aside>
         <div id="user-auth">
-            <!-- Placeholder for login/register form -->
+            <!-- Login placeholder -->
             <form id="auth-form">
                 <input type="text" placeholder="Username" required>
                 <input type="password" placeholder="Password" required>
@@ -42,13 +69,20 @@
             </form>
         </div>
         <div id="user-profile" style="display: none;">
-            <!-- Placeholder for user profile information -->
-            <p>Welcome, <span id="user-name"></span>!</p>
+            <!-- User name display placeholder -->
+            <p>Welcome, <span id="user-name">CyberExpert123</span>!</p>
+        </div>
+        
+        <!-- Placeholder for 3rd party service call -->
+        <div id="security-quote">
+            <h3>Security Quote of the Day</h3>
+            <p id="quote-text">Loading quote from external service...</p>
         </div>
     </aside>
 
     <footer>
         <p>&copy; 2024 CyberInsight Hub. All rights reserved.</p>
+        <p><a href="https://github.com/yourusername/cyberinsight-hub" target="_blank">View on GitHub</a></p>
     </footer>
 
     <!-- Placeholder for JavaScript files -->
