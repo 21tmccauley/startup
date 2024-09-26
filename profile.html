@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CyberInsight Hub - User Profile</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
@@ -21,30 +22,49 @@
     <main>
         <section id="user-profile">
             <h2>User Profile</h2>
+            <img src="placeholder-avatar.jpg" alt="User Avatar" width="200" height="200">
             <div id="profile-info">
-                <p>Username: <span id="profile-username"></span></p>
-                <p>Email: <span id="profile-email"></span></p>
-                <p>Member since: <span id="profile-join-date"></span></p>
+                <p>Username: <span id="profile-username">CyberExpert123</span></p>
+                <p>Email: <span id="profile-email">cyber.expert@example.com</span></p>
+                <p>Member since: <span id="profile-join-date">January 15, 2024</span></p>
             </div>
             <div id="user-activity">
                 <h3>Recent Activity</h3>
-                <!-- Placeholder for user's recent comments or interactions -->
-                <ul id="activity-list"></ul>
+                <!-- Placeholder for user's recent comments or interactions (database-driven) -->
+                <ul id="activity-list">
+                    <li>Commented on "Understanding Ransomware Attacks" - 1 day ago</li>
+                    <li>Reacted to "Top 10 Cybersecurity Tools for 2024" - 3 days ago</li>
+                    <!-- More activity placeholders -->
+                </ul>
             </div>
         </section>
     </main>
 
     <aside>
-        <div id="user-auth">
-            <!-- Placeholder for login/register form (same as index.html) -->
+        <div id="user-stats">
+            <h3>Your Stats</h3>
+            <!-- Placeholder for user statistics (database-driven) -->
+            <ul>
+                <li>Comments: 27</li>
+                <li>Reactions: 84</li>
+                <li>Articles Read: 156</li>
+            </ul>
         </div>
-        <div id="user-profile" style="display: none;">
-            <!-- Placeholder for user profile information (same as index.html) -->
+        
+        <!-- Placeholder for WebSocket data -->
+        <div id="online-friends">
+            <h3>Online Friends</h3>
+            <ul>
+                <li>SecurityNinja</li>
+                <li>EthicalHacker42</li>
+                <!-- More online friends placeholders -->
+            </ul>
         </div>
     </aside>
 
     <footer>
         <p>&copy; 2024 CyberInsight Hub. All rights reserved.</p>
+        <p><a href="https://github.com/yourusername/cyberinsight-hub" target="_blank">View on GitHub</a></p>
     </footer>
 
     <!-- Placeholder for JavaScript files -->
