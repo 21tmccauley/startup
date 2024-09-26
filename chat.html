@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CyberInsight Hub - Live Chat</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
@@ -20,9 +21,16 @@
 
     <main>
         <section id="live-chat">
-            <h2>Live Chat</h2>
+            <h2>Live Chat: Current Cybersecurity Trends</h2>
             <div id="chat-messages">
-                <!-- Placeholder for chat messages -->
+                <!-- Placeholder for WebSocket-driven chat messages -->
+                <div class="message">
+                    <strong>SecurityNinja:</strong> Has anyone implemented zero trust architecture in their organization?
+                </div>
+                <div class="message">
+                    <strong>EthicalHacker42:</strong> Yes, we've been working on it for the past 6 months. It's challenging but worth it.
+                </div>
+                <!-- More message placeholders -->
             </div>
             <form id="chat-form">
                 <input type="text" id="chat-input" placeholder="Type your message..." required>
@@ -33,20 +41,36 @@
 
     <aside>
         <div id="user-auth">
-            <!-- Placeholder for login/register form (same as index.html) -->
+            <!-- Login placeholder (same as index.html) -->
         </div>
         <div id="user-profile" style="display: none;">
-            <!-- Placeholder for user profile information (same as index.html) -->
+            <!-- User name display placeholder (same as index.html) -->
         </div>
         <div id="online-users">
             <h3>Online Users</h3>
-            <!-- Placeholder for list of online users -->
-            <ul id="user-list"></ul>
+            <!-- Placeholder for WebSocket-driven list of online users -->
+            <ul id="user-list">
+                <li>SecurityNinja</li>
+                <li>EthicalHacker42</li>
+                <li>CyberExpert123</li>
+                <!-- More user placeholders -->
+            </ul>
+        </div>
+        
+        <!-- Placeholder for 3rd party service call -->
+        <div id="cybersecurity-news">
+            <h3>Latest Cybersecurity News</h3>
+            <ul>
+                <li>Major data breach affects millions - 2 hours ago</li>
+                <li>New AI-powered security tool released - 5 hours ago</li>
+                <!-- More news placeholders -->
+            </ul>
         </div>
     </aside>
 
     <footer>
         <p>&copy; 2024 CyberInsight Hub. All rights reserved.</p>
+        <p><a href="https://github.com/yourusername/cyberinsight-hub" target="_blank">View on GitHub</a></p>
     </footer>
 
     <!-- Placeholder for JavaScript files -->
