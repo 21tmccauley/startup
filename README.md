@@ -56,3 +56,65 @@ CyberInsight Hub is a streamlined platform for cybersecurity enthusiasts to stay
 
 
 ![Page3](https://github.com/user-attachments/assets/6c1b8e4a-4d52-4cec-af63-a6328d403006)
+
+
+## Recent Changes and Future Plans
+
+### Recent Updates
+
+1. **HTML Structure Implementation**: 
+   - Created main pages: index.html, blog.html, profile.html, chat.html, and login.html
+   - Implemented proper semantic HTML structure using tags like header, nav, main, article, section, aside, and footer
+   - Added placeholders for dynamic content, including blog posts, comments, and user profiles
+
+2. **Third-Party API Integration**:
+   - Added placeholder for cybersecurity vulnerability API in blog.html
+   - Prepared structure for displaying related vulnerabilities for each blog post
+
+3. **Authentication System**:
+   - Created login.html with forms for user login and registration
+   - Added placeholders for user authentication across all pages
+
+4. **Real-time Features**:
+   - Implemented placeholders for WebSocket-driven features like live chat and real-time reactions
+
+### Future Development Plans
+
+1. **CSS Styling**:
+   - Develop a responsive CSS framework to ensure compatibility across devices
+   - Create a cohesive color scheme and typography system for improved readability and brand consistency
+
+2. **JavaScript Functionality**:
+   - Implement client-side form validation for login, registration, and comment submission
+   - Develop functions for dynamically loading and displaying blog posts and comments
+
+3. **React Implementation**:
+   - Convert the static HTML structure into a React-based single-page application
+   - Create reusable components for blog posts, comments, user profiles, and real-time features
+
+4. **Backend Development**:
+   - Set up a server to handle API requests for blog posts, comments, and user data
+   - Implement user authentication and authorization system
+   - Integrate with a database to store and retrieve application data
+
+5. **API Integration**:
+   - Fully integrate the cybersecurity vulnerability API to display real-time, relevant information
+   - Explore additional APIs for enhanced features like threat intelligence and security news
+
+6. **WebSocket Implementation**:
+   - Develop real-time chat functionality
+   - Implement live updates for comment systems and vulnerability alerts
+
+7. **Testing and Optimization**:
+   - Conduct thorough testing across different browsers and devices
+   - Optimize performance, focusing on load times and responsiveness
+
+8. **Security Enhancements**:
+   - Implement robust security measures to protect user data and prevent common web vulnerabilities
+   - Regular security audits and updates to maintain platform integrity
+
+9. **User Experience Improvements**:
+   - Gather user feedback and implement improvements based on user suggestions
+   - Develop additional features like customizable user dashboards and notification systems
+
+By following this development roadmap, CyberInsight Hub will evolve into a fully-functional, secure, and user-friendly platform for cybersecurity enthusiasts.
