@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberInsight Hub - Blog Post</title>
+    <title>CyberInsight Hub - Understanding Ransomware Attacks</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,6 +15,7 @@
                 <li><a href="blog.html">Blog</a></li>
                 <li><a href="profile.html">Profile</a></li>
                 <li><a href="chat.html">Live Chat</a></li>
+                <li><a href="login.html">Login/Register</a></li>
             </ul>
         </nav>
     </header>
@@ -23,10 +24,26 @@
         <article id="blog-post">
             <h2 id="post-title">Understanding Ransomware Attacks</h2>
             <p id="post-date">Published on: <time datetime="2024-09-25">September 25, 2024</time></p>
-            <img src="placeholder-image.jpg" alt="Ransomware Attack Illustration" width="600" height="400">
+            <img src="placeholder-ransomware.jpg" alt="Ransomware Attack Illustration" width="600" height="400">
             <div id="post-content">
-                <p>Ransomware attacks have become increasingly sophisticated and frequent in recent years. This article explores the latest trends in ransomware and provides actionable steps to protect your organization...</p>
-                <!-- More blog post content -->
+                <p>Ransomware attacks have become increasingly sophisticated and frequent in recent years. This article explores the latest trends in ransomware and provides actionable steps to protect your organization.</p>
+                <h3>What is Ransomware?</h3>
+                <p>Ransomware is a type of malicious software designed to block access to a computer system until a sum of money is paid. It typically spreads through phishing emails or by unknowingly visiting an infected website.</p>
+                <h3>Recent Trends</h3>
+                <ul>
+                    <li>Double Extortion: Attackers not only encrypt data but also threaten to leak sensitive information.</li>
+                    <li>Ransomware-as-a-Service (RaaS): Cybercriminals can now "rent" ransomware tools, lowering the barrier to entry.</li>
+                    <li>Supply Chain Attacks: Targeting software suppliers to infect a large number of organizations simultaneously.</li>
+                </ul>
+                <h3>Protection Strategies</h3>
+                <ol>
+                    <li>Regular Backups: Maintain offline, encrypted backups of your data.</li>
+                    <li>Employee Training: Educate staff about phishing emails and safe browsing practices.</li>
+                    <li>Keep Systems Updated: Regularly patch and update all software and operating systems.</li>
+                    <li>Use Anti-malware Software: Deploy and maintain comprehensive security solutions.</li>
+                    <li>Implement Zero Trust: Adopt a "never trust, always verify" approach to network access.</li>
+                </ol>
+                <p>By staying informed and implementing these strategies, organizations can significantly reduce their risk of falling victim to ransomware attacks.</p>
             </div>
         </article>
 
@@ -38,7 +55,10 @@
                     <p><strong>CyberExpert123:</strong> Great article! I'd add that employee training is crucial in preventing ransomware attacks.</p>
                     <p><small>Posted on: September 26, 2024</small></p>
                 </div>
-                <!-- More comment placeholders -->
+                <div class="comment">
+                    <p><strong>SecurityNinja:</strong> Excellent point about supply chain attacks. It's an often overlooked vector.</p>
+                    <p><small>Posted on: September 27, 2024</small></p>
+                </div>
             </div>
 
             <!-- Comment form -->
@@ -47,14 +67,31 @@
                 <button type="submit">Post Comment</button>
             </form>
         </section>
+
+        <!-- 3rd Party Service Call Placeholder -->
+        <section id="related-vulnerabilities">
+            <h3>Related Vulnerabilities</h3>
+            <div id="vulnerability-list">
+                <!-- Placeholder for 3rd party API call results -->
+                <p>Loading related vulnerabilities...</p>
+                <ul>
+                    <li>CVE-2024-1234: Critical vulnerability in popular email client</li>
+                    <li>CVE-2024-5678: Remote code execution flaw in widely-used backup software</li>
+                    <li>CVE-2024-9012: Zero-day exploit found in common network protocol</li>
+                </ul>
+                <p><small>Data provided by Cybersecurity Vulnerability Database API</small></p>
+            </div>
+        </section>
     </main>
 
     <aside>
         <div id="user-auth">
-            <!-- Login placeholder (same as index.html) -->
+            <!-- Login placeholder -->
+            <p>Please <a href="login.html">login or register</a> to access all features.</p>
         </div>
         <div id="user-profile" style="display: none;">
-            <!-- User name display placeholder (same as index.html) -->
+            <!-- User name display placeholder -->
+            <p>Welcome, <span id="user-name">CyberExpert123</span>!</p>
         </div>
         
         <!-- Placeholder for WebSocket data -->
@@ -62,11 +99,20 @@
             <h3>Live Reactions</h3>
             <p>👍 15 | 👎 2 | 😮 7</p>
         </div>
+
+        <div id="related-articles">
+            <h3>Related Articles</h3>
+            <ul>
+                <li><a href="#">10 Best Practices for Ransomware Prevention</a></li>
+                <li><a href="#">The Evolution of Ransomware Attacks</a></li>
+                <li><a href="#">Case Study: Recovering from a Ransomware Attack</a></li>
+            </ul>
+        </div>
     </aside>
 
     <footer>
         <p>&copy; 2024 CyberInsight Hub. All rights reserved.</p>
-        <p><a href="https://github.com/21tmccauley/startup" target="_blank">View on GitHub</a></p>
+        <p><a href="https://github.com/yourusername/cyberinsight-hub" target="_blank">View on GitHub</a></p>
     </footer>
 
     <!-- Placeholder for JavaScript files -->

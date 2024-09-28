@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberInsight Hub - Login/Register</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>CyberInsight Hub</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="chat.html">Live Chat</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="login-section">
+            <h2>Login</h2>
+            <form id="login-form">
+                <label for="login-username">Username:</label>
+                <input type="text" id="login-username" name="username" required>
+                
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" name="password" required>
+                
+                <button type="submit">Login</button>
+            </form>
+            <p>Don't have an account? <a href="#register-section">Register here</a></p>
+        </section>
+
+        <section id="register-section">
+            <h2>Register</h2>
+            <form id="register-form">
+                <label for="register-username">Username:</label>
+                <input type="text" id="register-username" name="username" required>
+                
+                <label for="register-email">Email:</label>
+                <input type="email" id="register-email" name="email" required>
+                
+                <label for="register-password">Password:</label>
+                <input type="password" id="register-password" name="password" required>
+                
+                <label for="register-confirm-password">Confirm Password:</label>
+                <input type="password" id="register-confirm-password" name="confirm-password" required>
+                
+                <button type="submit">Register</button>
+            </form>
+            <p>Already have an account? <a href="#login-section">Login here</a></p>
+        </section>
+    </main>
+
+    <aside>
+        <!-- Placeholder for 3rd party service call -->
+        <div id="security-tips">
+            <h3>Security Tip of the Day</h3>
+            <p id="tip-text">Loading security tip...</p>
+        </div>
+
+        <!-- Placeholder for WebSocket data -->
+        <div id="active-users">
+            <h3>Currently Active Users</h3>
+            <p><span id="user-count">0</span> cybersecurity enthusiasts online</p>
+        </div>
+    </aside>
+
+    <footer>
+        <p>&copy; 2024 CyberInsight Hub. All rights reserved.</p>
+        <p><a href="https://github.com/yourusername/cyberinsight-hub" target="_blank">View on GitHub</a></p>
+    </footer>
+
+    <!-- Placeholder for JavaScript files -->
+    <script src="app.js"></script>
+</body>
+</html>
