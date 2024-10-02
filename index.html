@@ -11,88 +11,121 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
+            <div class="container">
                 <a class="navbar-brand" href="#">CyberInsight Hub</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav ms-auto">
                       <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                       <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
                       <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
                       <li class="nav-item"><a class="nav-link" href="chat.html">Live Chat</a></li>
                       <li class="nav-item"><a class="nav-link" href="login.html">Login/Register</a></li>
                     </ul>
-                  </div>
+                </div>
             </div>
         </nav>
     </header>
 
-    <main>
-        <section id="intro">
-            <h2>Welcome to CyberInsight Hub</h2>
-            <p>Stay informed and engaged with the latest cybersecurity threats and defense strategies.</p>
-        </section>
+    <main class="container mt-4">
+        <div class="row">
+            <div class="col-lg-8">
+                <section id="intro" class="mb-4">
+                    <h2 class="display-4">Welcome to CyberInsight Hub</h2>
+                    <p class="lead">Stay informed and engaged with the latest cybersecurity threats and defense strategies.</p>
+                </section>
 
-        <section id="latest-posts">
-            <h2>Latest Blog Posts</h2>
-            <!-- Placeholder for dynamically loaded blog posts -->
-            <div id="blog-posts-container">
-                <article>
-                    <h3>Understanding Ransomware Attacks</h3>
-                    <p>Posted on: <time datetime="2024-09-25">September 25, 2024</time></p>
-                    <p>Learn about the latest ransomware trends and how to protect your organization...</p>
-                </article>
-                <!-- More blog post placeholders -->
+                <section id="latest-posts" class="mb-4">
+                    <h2 class="h3 mb-3">Latest Blog Posts</h2>
+                    <div id="blog-posts-container">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h3 class="card-title h5">Understanding Ransomware Attacks</h3>
+                                <p class="card-text"><small class="text-muted">Posted on: <time datetime="2024-09-25">September 25, 2024</time></small></p>
+                                <p class="card-text">Learn about the latest ransomware trends and how to protect your organization...</p>
+                                <a href="#" class="btn btn-primary">Read More</a>
+                            </div>
+                        </div>
+                        <!-- More blog post cards can be added here -->
+                    </div>
+                </section>
+
+                <section id="vulnerability-alerts" class="mb-4">
+                    <h2 class="h3 mb-3">Real-time Vulnerability Alerts</h2>
+                    <div id="alert-feed">
+                        <div class="alert alert-danger" role="alert">
+                            Critical vulnerability detected in popular CMS. Update immediately.
+                        </div>
+                        <div class="alert alert-warning" role="alert">
+                            New zero-day exploit found in widely-used email client.
+                        </div>
+                    </div>
+                </section>
             </div>
-        </section>
 
-        <section id="vulnerability-alerts">
-            <h2>Real-time Vulnerability Alerts</h2>
-            <!-- Placeholder for WebSocket-powered vulnerability feed -->
-            <div id="alert-feed">
-                <p>Critical vulnerability detected in popular CMS. Update immediately.</p>
-                <p>New zero-day exploit found in widely-used email client.</p>
-                <!-- More alert placeholders -->
+            <div class="col-lg-4">
+                <aside>
+                    <div id="user-auth" class="card mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title h5">Login / Register</h3>
+                            <form id="auth-form">
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" placeholder="Username" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="password" class="form-control" placeholder="Password" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Login / Register</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="user-profile" class="card mb-4" style="display: none;">
+                        <div class="card-body">
+                            <h3 class="card-title h5">Welcome, <span id="user-name">CyberExpert123</span>!</h3>
+                            <p class="card-text">You have 3 new notifications.</p>
+                            <a href="#" class="btn btn-outline-primary btn-sm">View Profile</a>
+                        </div>
+                    </div>
+                    
+                    <div id="community-stats" class="card mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title h5">Community Stats</h3>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Total Members
+                                    <span class="badge bg-primary rounded-pill">1,337</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Active Discussions
+                                    <span class="badge bg-primary rounded-pill">42</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Articles Published
+                                    <span class="badge bg-primary rounded-pill">256</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div id="security-quote" class="card mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title h5">Security Quote of the Day</h3>
+                            <p id="quote-text" class="card-text">Loading quote from external service...</p>
+                        </div>
+                    </div>
+                </aside>
             </div>
-        </section>
-
-        <section id="community-stats">
-            <h2>Community Stats</h2>
-            <!-- Placeholder for database-driven community statistics -->
-            <ul>
-                <li>Total Members: 1,337</li>
-                <li>Active Discussions: 42</li>
-                <li>Articles Published: 256</li>
-            </ul>
-        </section>
+        </div>
     </main>
 
-    <aside>
-        <div id="user-auth">
-            <!-- Login placeholder -->
-            <form id="auth-form">
-                <input type="text" placeholder="Username" required>
-                <input type="password" placeholder="Password" required>
-                <button type="submit">Login / Register</button>
-            </form>
+    <footer class="bg-light mt-4 py-3">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2024 CyberInsight Hub. All rights reserved.</p>
+            <p class="mb-0"><a href="https://github.com/21tmccauley/startup" target="_blank" class="text-decoration-none">View on GitHub</a></p>
         </div>
-        <div id="user-profile" style="display: none;">
-            <!-- User name display placeholder -->
-            <p>Welcome, <span id="user-name">CyberExpert123</span>!</p>
-        </div>
-        
-        <!-- Placeholder for 3rd party service call -->
-        <div id="security-quote">
-            <h3>Security Quote of the Day</h3>
-            <p id="quote-text">Loading quote from external service...</p>
-        </div>
-    </aside>
-
-    <footer>
-        <p>&copy; 2024 CyberInsight Hub. All rights reserved.</p>
-        <p><a href="https://github.com/21tmccauley/startup" target="_blank">View on GitHub</a></p>
     </footer>
 
     <!-- Placeholder for JavaScript files -->
