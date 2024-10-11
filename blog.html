@@ -3,119 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberInsight Hub - Understanding Ransomware Attacks</title>
+    <title>CyberInsight Hub - Blog</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>CyberInsight Hub</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="profile.html">Profile</a></li>
-                <li><a href="chat.html">Live Chat</a></li>
-                <li><a href="login.html">Login/Register</a></li>
-            </ul>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">CyberInsight Hub</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                      <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                      <li class="nav-item"><a class="nav-link active" href="blog.html">Blog</a></li>
+                      <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
+                      <li class="nav-item"><a class="nav-link" href="chat.html">Live Chat</a></li>
+                      <li class="nav-item"><a class="nav-link" href="login.html">Login/Register</a></li>
+                    </ul>
+                </div>
+            </div>
         </nav>
     </header>
 
-    <main>
-        <article id="blog-post">
-            <h2 id="post-title">Understanding Ransomware Attacks</h2>
-            <p id="post-date">Published on: <time datetime="2024-09-25">September 25, 2024</time></p>
-            <img src="placeholder-ransomware.jpg" alt="Ransomware Attack Illustration" width="600" height="400">
-            <div id="post-content">
-                <p>Ransomware attacks have become increasingly sophisticated and frequent in recent years. This article explores the latest trends in ransomware and provides actionable steps to protect your organization.</p>
-                <h3>What is Ransomware?</h3>
-                <p>Ransomware is a type of malicious software designed to block access to a computer system until a sum of money is paid. It typically spreads through phishing emails or by unknowingly visiting an infected website.</p>
-                <h3>Recent Trends</h3>
-                <ul>
-                    <li>Double Extortion: Attackers not only encrypt data but also threaten to leak sensitive information.</li>
-                    <li>Ransomware-as-a-Service (RaaS): Cybercriminals can now "rent" ransomware tools, lowering the barrier to entry.</li>
-                    <li>Supply Chain Attacks: Targeting software suppliers to infect a large number of organizations simultaneously.</li>
-                </ul>
-                <h3>Protection Strategies</h3>
-                <ol>
-                    <li>Regular Backups: Maintain offline, encrypted backups of your data.</li>
-                    <li>Employee Training: Educate staff about phishing emails and safe browsing practices.</li>
-                    <li>Keep Systems Updated: Regularly patch and update all software and operating systems.</li>
-                    <li>Use Anti-malware Software: Deploy and maintain comprehensive security solutions.</li>
-                    <li>Implement Zero Trust: Adopt a "never trust, always verify" approach to network access.</li>
-                </ol>
-                <p>By staying informed and implementing these strategies, organizations can significantly reduce their risk of falling victim to ransomware attacks.</p>
+    <main class="container mt-4">
+        <div class="row">
+            <div class="col-lg-8">
+                <h1 class="mb-4">CyberInsight Hub Blog</h1>
+                <article class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title h3">Understanding Ransomware Attacks</h2>
+                        <p class="card-text"><small class="text-muted">Posted on: September 25, 2024</small></p>
+                        <img src="placeholder-ransomware.jpg" alt="Ransomware Attack Illustration" class="img-fluid mb-3">
+                        <p class="card-text">Ransomware attacks have become increasingly sophisticated and frequent in recent years. This article explores the latest trends in ransomware and provides actionable steps to protect your organization.</p>
+                        <a href="#" class="btn btn-primary">Read More</a>
+                    </div>
+                </article>
+                <article class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title h3">Top 10 Cybersecurity Tools for 2024</h2>
+                        <p class="card-text"><small class="text-muted">Posted on: September 20, 2024</small></p>
+                        <p class="card-text">Stay ahead of cyber threats with these top 10 cybersecurity tools that every organization should consider implementing in 2024.</p>
+                        <a href="#" class="btn btn-primary">Read More</a>
+                    </div>
+                </article>
+                <!-- More blog posts can be added here -->
             </div>
-        </article>
-
-        <section id="comments">
-            <h3>Comments</h3>
-            <!-- Placeholder for comments (database-driven content) -->
-            <div id="comments-container">
-                <div class="comment">
-                    <p><strong>CyberExpert123:</strong> Great article! I'd add that employee training is crucial in preventing ransomware attacks.</p>
-                    <p><small>Posted on: September 26, 2024</small></p>
-                </div>
-                <div class="comment">
-                    <p><strong>SecurityNinja:</strong> Excellent point about supply chain attacks. It's an often overlooked vector.</p>
-                    <p><small>Posted on: September 27, 2024</small></p>
-                </div>
+            <div class="col-lg-4">
+                <aside>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title h5">Search</h3>
+                            <form>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search blog posts...">
+                                    <button class="btn btn-outline-secondary" type="submit">Search</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title h5">Categories</h3>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Ransomware
+                                    <span class="badge bg-primary rounded-pill">12</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Network Security
+                                    <span class="badge bg-primary rounded-pill">8</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Data Privacy
+                                    <span class="badge bg-primary rounded-pill">15</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title h5">Recent Comments</h3>
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <p class="mb-0"><strong>John Doe</strong> on <a href="#">Understanding Ransomware Attacks</a></p>
+                                    <small class="text-muted">Great article! Very informative.</small>
+                                </li>
+                                <li class="mb-2">
+                                    <p class="mb-0"><strong>Jane Smith</strong> on <a href="#">Top 10 Cybersecurity Tools for 2024</a></p>
+                                    <small class="text-muted">I've been using tool #3 and it's fantastic!</small>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </aside>
             </div>
-
-            <!-- Comment form -->
-            <form id="comment-form">
-                <textarea placeholder="Write your comment here" required></textarea>
-                <button type="submit">Post Comment</button>
-            </form>
-        </section>
-
-        <!-- 3rd Party Service Call Placeholder -->
-        <section id="related-vulnerabilities">
-            <h3>Related Vulnerabilities</h3>
-            <div id="vulnerability-list">
-                <!-- Placeholder for 3rd party API call results -->
-                <p>Loading related vulnerabilities...</p>
-                <ul>
-                    <li>CVE-2024-1234: Critical vulnerability in popular email client</li>
-                    <li>CVE-2024-5678: Remote code execution flaw in widely-used backup software</li>
-                    <li>CVE-2024-9012: Zero-day exploit found in common network protocol</li>
-                </ul>
-                <p><small>Data provided by Cybersecurity Vulnerability Database API</small></p>
-            </div>
-        </section>
+        </div>
     </main>
 
-    <aside>
-        <div id="user-auth">
-            <!-- Login placeholder -->
-            <p>Please <a href="login.html">login or register</a> to access all features.</p>
+    <footer class="bg-light mt-4 py-3">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2024 CyberInsight Hub. All rights reserved.</p>
+            <p class="mb-0"><a href="https://github.com/21tmccauley/startup" target="_blank" class="text-decoration-none">View on GitHub</a></p>
         </div>
-        <div id="user-profile" style="display: none;">
-            <!-- User name display placeholder -->
-            <p>Welcome, <span id="user-name">CyberExpert123</span>!</p>
-        </div>
-        
-        <!-- Placeholder for WebSocket data -->
-        <div id="live-reactions">
-            <h3>Live Reactions</h3>
-            <p>👍 15 | 👎 2 | 😮 7</p>
-        </div>
-
-        <div id="related-articles">
-            <h3>Related Articles</h3>
-            <ul>
-                <li><a href="#">10 Best Practices for Ransomware Prevention</a></li>
-                <li><a href="#">The Evolution of Ransomware Attacks</a></li>
-                <li><a href="#">Case Study: Recovering from a Ransomware Attack</a></li>
-            </ul>
-        </div>
-    </aside>
-
-    <footer>
-        <p>&copy; 2024 CyberInsight Hub. All rights reserved.</p>
-        <p><a href="https://github.com/yourusername/cyberinsight-hub" target="_blank">View on GitHub</a></p>
     </footer>
 
-    <!-- Placeholder for JavaScript files -->
     <script src="app.js"></script>
 </body>
 </html>
