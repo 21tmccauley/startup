@@ -118,3 +118,47 @@ CyberInsight Hub is a streamlined platform for cybersecurity enthusiasts to stay
    - Develop additional features like customizable user dashboards and notification systems
 
 By following this development roadmap, CyberInsight Hub will evolve into a fully-functional, secure, and user-friendly platform for cybersecurity enthusiasts.
+
+## CSS Deliverable
+
+In this deliverable, I styled the application into its final appearance. The application now includes all the required styling elements and is responsive to different screen sizes.
+
+### CSS Deliverable Elements
+
+- **Header, footer, and main content body**
+  - Implemented a clean, modern design for the header and footer
+  - Main content area uses a responsive layout to adapt to different screen sizes
+
+- **Navigation elements**
+  - Created a responsive navigation menu that collapses into a hamburger menu on smaller screens
+  - Added hover effects to improve user interaction
+
+- **Responsive design**
+  - Ensured the application is fully responsive and looks good on desktop, tablet, and mobile devices
+  - Used media queries to adjust layouts and font sizes for different screen sizes
+
+- **Application elements**
+  - Styled blog post cards with consistent design and hover effects
+  - Implemented an attractive design for user profiles and comment sections
+
+- **Application text content**
+  - Chose a readable font and implemented a clear typographic hierarchy
+  - Ensured proper contrast between text and background for accessibility
+
+- **Application images**
+  - Optimized images for web use and implemented responsive image techniques
+  - Added subtle hover effects to clickable images
+
+### Additional Design Notes
+
+- Implemented a color scheme that reflects the cybersecurity theme
+- Used CSS animations for subtle UI enhancements (e.g., fading in content, smooth transitions)
+- Ensured consistent spacing and alignment throughout the application
+
+### Future Improvements
+
+- Implement dark mode toggle
+- Enhance accessibility features
+- Add more interactive elements using CSS animations
+
+This deliverable demonstrates the visual design and layout of the CyberInsight Hub, setting the stage for adding dynamic functionality in future updates.
