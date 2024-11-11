@@ -162,3 +162,78 @@ In this deliverable, I styled the application into its final appearance. The app
 - Add more interactive elements using CSS animations
 
 This deliverable demonstrates the visual design and layout of the CyberInsight Hub, setting the stage for adding dynamic functionality in future updates.
+
+## React Deliverable
+
+In this deliverable, I converted the front-end of CyberInsight Hub to use React, implementing all the required functionality and components.
+
+### React Deliverable Elements
+
+- **Vite Build Tool**
+  - Created a new React project using Vite
+  - Configured build settings for development and production environments
+  - Implemented proper bundling for optimal performance
+
+- **React Components**
+  - Created multiple React components including:
+    - Navigation.jsx for site-wide navigation
+    - Home.jsx for the landing page with vulnerability alerts
+    - Blog.jsx for displaying cybersecurity articles
+    - Profile.jsx for user profiles and activity tracking
+    - LiveChat.jsx for real-time user discussions
+    - Login.jsx for user authentication
+    - Footer.jsx with site information and GitHub links
+
+- **React Router**
+  - Implemented React Router for client-side routing
+  - Created routes for all major sections of the application
+  - Added active link highlighting in navigation
+
+- **React Hooks**
+  - Used useState for managing component state across the application
+  - Implemented useLocation for navigation highlighting
+  - Utilized hooks for form handling and user input
+
+- **Interactive Components**
+  - Added interactive elements including:
+    - Real-time chat interface
+    - Blog post search functionality
+    - User authentication forms
+    - Profile editing capabilities
+    - Comment and reaction systems
+
+- **State Management**
+  - Implemented state management for:
+    - User session information
+    - Blog posts and comments
+    - Real-time chat messages
+    - Vulnerability alerts
+
+### Design Improvements
+
+- Maintained responsive design across all components
+- Ensured consistent styling using Bootstrap classes
+- Implemented proper component hierarchy for optimal performance
+
+### Future Enhancements
+
+1. **Backend Integration**
+   - Connect React components to backend services
+   - Implement real data fetching and storage
+
+2. **Authentication System**
+   - Complete user authentication flow
+   - Add secure session management
+
+3. **WebSocket Implementation**
+   - Integrate WebSocket for live chat functionality
+   - Add real-time updates for vulnerability alerts
+
+4. **Performance Optimization**
+   - Implement lazy loading for components
+   - Optimize bundle size and loading times
+
+5. **Additional Features**
+   - Add dark mode toggle
+   - Implement user notifications
+   - Add more interactive elements to blog posts
