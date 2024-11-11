@@ -3,6 +3,11 @@ import cors from 'cors';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
+// Import routes
+import authRoutes from './api/auth.js';
+import postRoutes from './api/posts.js';
+import chatRoutes from './api/chat.js';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -14,15 +19,24 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../dist')));
 
-// Basic error handler
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
+// Logging middleware
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
+  next();
 });
 
-// Routes will be imported here later
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'healthy' });
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/posts', postRoutes);
+app.use('/api/chat', chatRoutes);
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ 
+    success: false, 
+    message: 'Something went wrong!' 
+  });
 });
 
 // Catch-all route for SPA
