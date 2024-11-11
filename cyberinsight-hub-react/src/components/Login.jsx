@@ -1,12 +1,15 @@
-// src/components/Login.jsx
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Login() {
+  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
+    username: '',
     rememberMe: false
   });
 
@@ -18,10 +21,34 @@ export default function Login() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
+    setError('');
+    setLoading(true);
+
+    try {
+      const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
+      const response = await fetch(`http://localhost:4000${endpoint}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        // TODO: Store user data/token
+        navigate('/');
+      } else {
+        setError(data.message);
+      }
+    } catch (error) {
+      setError('Failed to connect to server');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -33,6 +60,10 @@ export default function Login() {
               <h2 className="text-center mb-4">
                 {isLogin ? 'Welcome Back' : 'Create Account'}
               </h2>
+
+              {error && (
+                <div className="alert alert-danger">{error}</div>
+              )}
 
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
@@ -47,6 +78,21 @@ export default function Login() {
                     required
                   />
                 </div>
+
+                {!isLogin && (
+                  <div className="mb-3">
+                    <label htmlFor="username" className="form-label">Username</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="username"
+                      name="username"
+                      value={formData.username}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                )}
 
                 <div className="mb-3">
                   <label htmlFor="password" className="form-label">Password</label>
@@ -78,8 +124,12 @@ export default function Login() {
                 )}
 
                 <div className="d-grid">
-                  <button type="submit" className="btn btn-primary">
-                    {isLogin ? 'Log In' : 'Sign Up'}
+                  <button 
+                    type="submit" 
+                    className="btn btn-primary"
+                    disabled={loading}
+                  >
+                    {loading ? 'Please wait...' : (isLogin ? 'Log In' : 'Sign Up')}
                   </button>
                 </div>
 
