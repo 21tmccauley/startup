@@ -1,5 +1,4 @@
-// src/components/Home.jsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Home() {
@@ -16,21 +15,48 @@ export default function Home() {
     }
   ]);
 
-  const [latestPosts] = useState([
-    {
-      id: 1,
-      title: 'Understanding Ransomware Attacks',
-      date: 'September 25, 2024',
-      excerpt: 'Learn about the latest ransomware trends and how to protect your organization...'
-    },
-    // Add more posts as needed
-  ]);
+  const [quote, setQuote] = useState('Loading quote...');
+  const [quoteAuthor, setQuoteAuthor] = useState('');
 
-  const [stats] = useState({
-    members: 1337,
-    discussions: 42,
-    articles: 256
+  // Fetch quote from API
+  useEffect(() => {
+    const fetchQuote = async () => {
+      try {
+        const response = await fetch('https://api.quotable.io/random?tags=technology');
+        const data = await response.json();
+        setQuote(data.content);
+        setQuoteAuthor(data.author);
+      } catch (error) {
+        setQuote('Technology is best when it brings people together. - Matt Mullenweg');
+        setQuoteAuthor('Fallback Quote');
+      }
+    };
+
+    fetchQuote();
+  }, []);
+
+  const [stats, setStats] = useState({
+    members: 0,
+    discussions: 0,
+    articles: 0
   });
+
+  // Fetch stats from your backend
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/api/stats');
+        const data = await response.json();
+        if (data.success) {
+          setStats(data.stats);
+        }
+      } catch (error) {
+        console.error('Failed to fetch stats:', error);
+      }
+    };
+
+    fetchStats();
+  }, []);
 
   return (
     <div className="container mt-4">
@@ -53,22 +79,6 @@ export default function Home() {
               ))}
             </div>
           </section>
-
-          <section id="latest-posts" className="mb-4">
-            <h2 className="h3 mb-3">Latest Blog Posts</h2>
-            <div id="blog-posts-container">
-              {latestPosts.map(post => (
-                <div key={post.id} className="card mb-3">
-                  <div className="card-body">
-                    <h3 className="card-title h5">{post.title}</h3>
-                    <small>{post.date}</small>
-                    <p className="mt-2">{post.excerpt}</p>
-                    <Link to="/blog" className="btn btn-primary">Read More</Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
         </div>
 
         <div className="col-lg-4">
@@ -86,7 +96,14 @@ export default function Home() {
           <div className="card mb-4">
             <div className="card-body">
               <h3 className="card-title h5">Security Quote of the Day</h3>
-              <p className="mb-0">Loading quote from external service...</p>
+              <figure>
+                <blockquote className="blockquote">
+                  <p className="mb-0">{quote}</p>
+                </blockquote>
+                <figcaption className="blockquote-footer">
+                  {quoteAuthor}
+                </figcaption>
+              </figure>
             </div>
           </div>
         </div>
