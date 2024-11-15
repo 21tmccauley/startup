@@ -1,29 +1,30 @@
 import { MongoClient } from 'mongodb';
 import config from './dbConfig.json' assert { type: 'json' };
 
-const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
+const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}/?appName=Cluster0`;
 const client = new MongoClient(url);
-const db = client.db('cyberinsight');
 
-// Test the connection
-(async function testConnection() {
+let db;
+
+async function connectDB() {
   try {
     await client.connect();
-    await db.command({ ping: 1 });
-    console.log('Connected successfully to MongoDB');
-  } catch (error) {
-    console.error('Connection to MongoDB failed:', error);
-    process.exit(1);
+    console.log('Connected to MongoDB');
+    db = client.db('cyberinsight');
+    return db;
+  } catch (err) {
+    console.error('MongoDB connection error:', err);
+    throw err;
   }
-})();
+}
 
-// Export collections
+await connectDB();
+
 export const users = db.collection('users');
 export const posts = db.collection('posts');
 export const comments = db.collection('comments');
 export const messages = db.collection('messages');
 
-// Helper functions
 export async function findUserByEmail(email) {
   return await users.findOne({ email });
 }
@@ -37,7 +38,7 @@ export async function getBlogPosts() {
 }
 
 export async function createBlogPost(postData) {
-  return await posts.insertOne({ ...postData, date: new Date() });
+  return await posts.insertOne(postData);
 }
 
 export async function getChatMessages(limit = 50) {
@@ -48,8 +49,5 @@ export async function getChatMessages(limit = 50) {
 }
 
 export async function saveChatMessage(messageData) {
-  return await messages.insertOne({ 
-    ...messageData, 
-    timestamp: new Date() 
-  });
+  return await messages.insertOne(messageData);
 }

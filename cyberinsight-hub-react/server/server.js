@@ -2,11 +2,15 @@ import express from 'express';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
 import path from 'path';
+import testConnection from './api/test.js';
 
 // Import routes
-import authRoutes from './api/auth.js';
-import postRoutes from './api/posts.js';
-import chatRoutes from './api/chat.js';
+// import authRoutes from './api/auth.js';
+// import postRoutes from './api/posts.js';
+// import chatRoutes from './api/chat.js';
+
+
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -26,9 +30,21 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/posts', postRoutes);
-app.use('/api/chat', chatRoutes);
+// app.use('/api/auth', authRoutes);
+// app.use('/api/posts', postRoutes);
+// app.use('/api/chat', chatRoutes);
+
+app.on('error', (err) => {
+  console.error('Server error:', err);
+});
+
+
+app.get('/api/test', (req, res) => {
+  console.log("made it to /api/test,")
+  testConnection();
+  console.log(" connection valid")
+  res.send("hello");
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
