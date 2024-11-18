@@ -2,14 +2,12 @@ import express from 'express';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
 import path from 'path';
-import testConnection from './api/test.js';
+// import testConnection from './api/test.js';
 
 // Import routes
 // import authRoutes from './api/auth.js';
 // import postRoutes from './api/posts.js';
 // import chatRoutes from './api/chat.js';
-
-
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -21,7 +19,7 @@ const port = process.argv.length > 2 ? process.argv[2] : 4000;
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../dist')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Logging middleware
 app.use((req, res, next) => {
@@ -39,12 +37,12 @@ app.on('error', (err) => {
 });
 
 
-app.get('/api/test', (req, res) => {
-  console.log("made it to /api/test,")
-  testConnection();
-  console.log(" connection valid")
-  res.send("hello");
-});
+// app.get('/api/test', (req, res) => {
+//   console.log("made it to /api/test,")
+//   testConnection();
+//   console.log(" connection valid")
+//   res.send("hello");
+// });
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -56,9 +54,13 @@ app.use((err, req, res, next) => {
 });
 
 // Catch-all route for SPA
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../dist/index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, './public/index.html'));
+// });
+
+app.use((_req, res) => {
+  res.sendFile('index.html', {root: "public"})
+})
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev:frontend": "vite",
-    "dev:backend": "nodemon server/server.js",
+    "dev:backend": "nodemon service/index.js",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",

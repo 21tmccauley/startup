@@ -1,20 +1,28 @@
 import { MongoClient } from 'mongodb';
 import config from './dbConfig.json' assert { type: 'json' };
 
-const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}/?appName=Cluster0`;
-const client = new MongoClient(url);
+const uri = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}/?appName=Cluster0`;
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
 
 let db;
 
 async function connectDB() {
   try {
     await client.connect();
-    console.log('Connected to MongoDB');
+    // Send a ping to confirm a successful connection
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
     db = client.db('cyberinsight');
     return db;
   } catch (err) {
     console.error('MongoDB connection error:', err);
-    throw err;
+    throw err; 
   }
 }
 
