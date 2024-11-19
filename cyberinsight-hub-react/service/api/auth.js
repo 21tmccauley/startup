@@ -6,10 +6,10 @@ const router = express.Router();
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log('Login attempt:', { email }); // Debug log
+    console.log('Login attempt:', { email });
     
     const user = await findUserByEmail(email);
-    console.log('User found:', user ? 'yes' : 'no'); // Debug log
+    console.log('User found:', user ? 'yes' : 'no');
     
     if (!user) {
       return res.status(401).json({ 
@@ -18,22 +18,20 @@ router.post('/login', async (req, res) => {
       });
     }
     
-    // TODO: Add proper password hashing/verification
     if (user.password === password) {
       // Remove password before sending user data
       const { password, ...userData } = user;
-      console.log('Login successful:', userData); // Debug log
-      res.json({ success: true, user: userData });
+      console.log('Login successful:', userData);
+      return res.json({ success: true, user: userData }); // Make sure to return here
     } else {
-      console.log('Password mismatch'); // Debug log
-      res.status(401).json({ 
+      return res.status(401).json({ 
         success: false, 
         message: 'Invalid credentials' 
       });
     }
   } catch (error) {
-    console.error('Login error:', error); // Debug log
-    res.status(500).json({ 
+    console.error('Login error:', error);
+    return res.status(500).json({ 
       success: false, 
       message: 'Server error' 
     });

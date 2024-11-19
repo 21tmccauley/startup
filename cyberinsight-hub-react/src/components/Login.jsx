@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useUser } from '../contexts/UserContext' 
 
 export default function Login() {
+  const { login } = useUser();
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState('');
@@ -27,8 +29,6 @@ export default function Login() {
     setLoading(true);
   
     try {
-      console.log('Attempting login with:', formData.email); // Debug log
-      
       const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
       const response = await fetch(`http://localhost:4000${endpoint}`, {
         method: 'POST',
@@ -38,19 +38,21 @@ export default function Login() {
         body: JSON.stringify(formData),
       });
   
-      console.log('Response status:', response.status); // Debug log
-      
+      // Add these console.logs for debugging
+      console.log('Response status:', response.status);
       const data = await response.json();
-      console.log('Response data:', data); // Debug log
+      console.log('Response data:', data);
   
       if (data.success) {
-        // TODO: Store user data/token
+        console.log('Login successful, user data:', data.user);
+        login(data.user); // Make sure you're importing and using the login function from UserContext
         navigate('/');
       } else {
+        console.log('Login failed:', data.message);
         setError(data.message);
       }
     } catch (error) {
-      console.error('Login error:', error); // Debug log
+      console.error('Fetch error:', error); // More detailed error logging
       setError('Failed to connect to server');
     } finally {
       setLoading(false);
