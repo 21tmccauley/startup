@@ -9,8 +9,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "serve": "node server/server.js",
-    "dev:server": "nodemon server/server.js"
+    "serve": "node service/index.js",
+    "dev:server": "nodemon service/index.js"
   },
   "dependencies": {
     "clsx": "^2.1.1",

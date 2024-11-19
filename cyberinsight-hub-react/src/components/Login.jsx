@@ -25,8 +25,10 @@ export default function Login() {
     e.preventDefault();
     setError('');
     setLoading(true);
-
+  
     try {
+      console.log('Attempting login with:', formData.email); // Debug log
+      
       const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
       const response = await fetch(`http://localhost:4000${endpoint}`, {
         method: 'POST',
@@ -35,9 +37,12 @@ export default function Login() {
         },
         body: JSON.stringify(formData),
       });
-
+  
+      console.log('Response status:', response.status); // Debug log
+      
       const data = await response.json();
-
+      console.log('Response data:', data); // Debug log
+  
       if (data.success) {
         // TODO: Store user data/token
         navigate('/');
@@ -45,6 +50,7 @@ export default function Login() {
         setError(data.message);
       }
     } catch (error) {
+      console.error('Login error:', error); // Debug log
       setError('Failed to connect to server');
     } finally {
       setLoading(false);

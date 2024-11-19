@@ -2,12 +2,14 @@ import express from 'express';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
 import path from 'path';
-// import testConnection from './api/test.js';
+import { MongoClient } from 'mongodb';
+import config from './dbConfig.json' assert { type: 'json' };
+import testConnection from './api/test.js';
 
 // Import routes
-// import authRoutes from './api/auth.js';
-// import postRoutes from './api/posts.js';
-// import chatRoutes from './api/chat.js';
+import authRoutes from './api/auth.js';
+import postRoutes from './api/posts.js';
+import chatRoutes from './api/chat.js';
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -28,21 +30,35 @@ app.use((req, res, next) => {
 });
 
 // Routes
-// app.use('/api/auth', authRoutes);
-// app.use('/api/posts', postRoutes);
-// app.use('/api/chat', chatRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/posts', postRoutes);
+app.use('/api/chat', chatRoutes);
 
 app.on('error', (err) => {
   console.error('Server error:', err);
 });
 
+app.get('/api/test', async (req, res) => {
+  const uri = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}/?appName=Cluster0`;
+  const client = new MongoClient(uri);
+  
+  try {
+    await client.connect();
+    await client.db("admin").command({ ping: 1 });
+    res.json({ success: true });
+  } catch (error) {
+    res.json({ success: false, error: error.message });
+  } finally {
+    await client.close();
+  }
+});
 
-// app.get('/api/test', (req, res) => {
-//   console.log("made it to /api/test,")
-//   testConnection();
-//   console.log(" connection valid")
-//   res.send("hello");
-// });
+app.get('/api/test', (req, res) => {
+  console.log("made it to /api/test,")
+  testConnection();
+  console.log(" connection valid")
+  res.send("hello");
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {

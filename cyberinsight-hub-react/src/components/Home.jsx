@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { AlertCircle, CheckCircle2 } from 'lucide-react';
 
 export default function Home() {
   const [alerts] = useState([
@@ -17,8 +18,10 @@ export default function Home() {
 
   const [quote, setQuote] = useState('Loading quote...');
   const [quoteAuthor, setQuoteAuthor] = useState('');
+  const [connectionStatus, setConnectionStatus] = useState(null);
+  const [connectionError, setConnectionError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  // Fetch quote from API
   useEffect(() => {
     const fetchQuote = async () => {
       try {
@@ -41,7 +44,6 @@ export default function Home() {
     articles: 0
   });
 
-  // Fetch stats from your backend
   useEffect(() => {
     const fetchStats = async () => {
       try {
@@ -57,6 +59,29 @@ export default function Home() {
 
     fetchStats();
   }, []);
+
+  const testConnection = async () => {
+    setLoading(true);
+    setConnectionError(null);
+    setConnectionStatus(null);
+
+    try {
+      const response = await fetch('http://localhost:4000/api/test');
+      const data = await response.json();
+
+      if (data.success) {
+        setConnectionStatus('connected');
+      } else {
+        setConnectionError(data.error || 'Connection failed');
+        setConnectionStatus('error');
+      }
+    } catch (err) {
+      setConnectionError(err.message);
+      setConnectionStatus('error');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="container mt-4">
@@ -82,6 +107,35 @@ export default function Home() {
         </div>
 
         <div className="col-lg-4">
+          <div className="card mb-4">
+            <div className="card-body">
+              <h3 className="card-title h5">Database Connection Status</h3>
+              <button 
+                onClick={testConnection}
+                disabled={loading}
+                className="btn btn-primary w-100 mb-3"
+              >
+                {loading ? 'Testing Connection...' : 'Test MongoDB Connection'}
+              </button>
+              
+              {connectionStatus && (
+                <div className={`alert ${connectionStatus === 'connected' ? 'alert-success' : 'alert-danger'} d-flex align-items-center`}>
+                  {connectionStatus === 'connected' ? (
+                    <>
+                      <CheckCircle2 className="me-2" />
+                      <span>Successfully connected to MongoDB</span>
+                    </>
+                  ) : (
+                    <>
+                      <AlertCircle className="me-2" />
+                      <span>{connectionError}</span>
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+
           <div className="card mb-4">
             <div className="card-body">
               <h3 className="card-title h5">Community Stats</h3>
