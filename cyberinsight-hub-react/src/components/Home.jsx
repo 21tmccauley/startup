@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AlertCircle, CheckCircle2 } from 'lucide-react';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://startup.tatemccauley.click';
+
 export default function Home() {
   const [alerts] = useState([
     {
@@ -47,7 +49,7 @@ export default function Home() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await fetch('http://localhost:4000/api/stats');
+        const response = await fetch(`${API_BASE_URL}/api/stats`);
         const data = await response.json();
         if (data.success) {
           setStats(data.stats);
@@ -66,7 +68,7 @@ export default function Home() {
     setConnectionStatus(null);
 
     try {
-      const response = await fetch('http://localhost:4000/api/test');
+      const response = await fetch(`${API_BASE_URL}/api/test`);
       const data = await response.json();
 
       if (data.success) {

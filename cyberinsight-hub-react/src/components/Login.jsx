@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useUser } from '../contexts/UserContext' 
+import { useUser } from '../contexts/UserContext';
+
+// Set API base URL based on environment
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://startup.tatemccauley.click';
 
 export default function Login() {
   const { login } = useUser();
@@ -30,34 +33,33 @@ export default function Login() {
   
     try {
       const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
-      const response = await fetch(`http://localhost:4000${endpoint}`, {
+      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
+        credentials: 'include',
       });
   
-      // Add these console.logs for debugging
-      console.log('Response status:', response.status);
       const data = await response.json();
-      console.log('Response data:', data);
+      console.log('Response:', { status: response.status, data });
   
-      if (data.success) {
-        console.log('Login successful, user data:', data.user);
-        login(data.user); // Make sure you're importing and using the login function from UserContext
+      if (response.ok && data.success) {
+        // Add rememberMe to user data before passing to context
+        login({ ...data.user, rememberMe: formData.rememberMe });
         navigate('/');
       } else {
-        console.log('Login failed:', data.message);
-        setError(data.message);
+        setError(data.message || 'Authentication failed');
       }
     } catch (error) {
-      console.error('Fetch error:', error); // More detailed error logging
-      setError('Failed to connect to server');
+      console.error('Connection error:', error);
+      setError('Failed to connect to server. Please try again.');
     } finally {
       setLoading(false);
     }
   };
+
 
   return (
     <div className="container mt-5">
