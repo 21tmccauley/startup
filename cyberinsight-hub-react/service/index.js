@@ -1,11 +1,10 @@
-import express from 'express';  // Make sure express is imported
+import express from 'express';
 import cors from 'cors';
+import { createServer } from 'http';
+import { WebSocketServer } from 'ws';
 import { fileURLToPath } from 'url';
 import path from 'path';
-import { MongoClient } from 'mongodb';
 import config from './dbConfig.json' assert { type: 'json' };
-import testConnection from './api/test.js';
-import setupWebSocket from './websocket.js'
 
 // Import routes
 import authRoutes from './api/auth.js';
@@ -18,75 +17,99 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
-// Add middleware to log all incoming requests
-app.use((req, res, next) => {
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
-  next();
+// Create HTTP server
+const server = createServer(app);
+
+// Create WebSocket server
+const wss = new WebSocketServer({ server });
+
+// Track connected clients and their usernames
+const clients = new Map();
+
+function broadcastMessage(message) {
+  clients.forEach((username, client) => {
+    if (client.readyState === 1) { // WebSocket.OPEN
+      client.send(JSON.stringify(message));
+    }
+  });
+}
+
+function updateUserList() {
+  const userList = Array.from(clients.values());
+  broadcastMessage({
+    type: 'user_list',
+    users: userList
+  });
+}
+
+// WebSocket connection handling
+wss.on('connection', (ws) => {
+  console.log('New WebSocket client connected');
+  
+  // Initially set as anonymous
+  clients.set(ws, 'Anonymous');
+  updateUserList();
+
+  ws.on('message', (data) => {
+    try {
+      const message = JSON.parse(data.toString());
+      console.log('Received WebSocket message:', message);
+
+      switch (message.type) {
+        case 'user_connected':
+          clients.set(ws, message.user);
+          updateUserList();
+          break;
+
+        case 'chat':
+          broadcastMessage({
+            type: 'chat',
+            data: {
+              user: message.user,
+              message: message.message,
+              timestamp: new Date().toLocaleTimeString()
+            }
+          });
+          break;
+      }
+    } catch (error) {
+      console.error('Error processing WebSocket message:', error);
+      ws.send(JSON.stringify({
+        type: 'error',
+        message: 'Failed to process message'
+      }));
+    }
+  });
+
+  ws.on('close', () => {
+    console.log('Client disconnected');
+    clients.delete(ws);
+    updateUserList();
+  });
+
+  ws.on('error', (error) => {
+    console.error('WebSocket error:', error);
+    clients.delete(ws);
+    updateUserList();
+  });
 });
 
-// Configure CORS with logging
+// Configure CORS
 const corsOptions = {
-  origin: function(origin, callback) {
-    const allowedOrigins = ['http://localhost:5173', 'https://startup.tatemccauley.click'];
-    console.log('Request origin:', origin);
-    
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      console.log('Origin not allowed:', origin);
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: ['http://localhost:5173', 'https://startup.tatemccauley.click'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization']
 };
 
 app.use(cors(corsOptions));
-
-// Remove any other CORS middleware or headers in route handlers
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
-
-// Logging middleware
-app.use((req, res, next) => {
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
-  next();
-});
 
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/chat', chatRoutes);
-
-app.on('error', (err) => {
-  console.error('Server error:', err);
-});
-
-app.get('/api/test', async (req, res) => {
-  const uri = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}/?appName=Cluster0`;
-  const client = new MongoClient(uri);
-  
-  try {
-    await client.connect();
-    await client.db("admin").command({ ping: 1 });
-    res.json({ success: true });
-  } catch (error) {
-    res.json({ success: false, error: error.message });
-  } finally {
-    await client.close();
-  }
-});
-
-app.get('/api/test', (req, res) => {
-  console.log("made it to /api/test,")
-  testConnection();
-  console.log(" connection valid")
-  res.send("hello");
-});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -97,18 +120,8 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Catch-all route for SPA
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, './public/index.html'));
-// });
-
-app.use((_req, res) => {
-  res.sendFile('index.html', {root: "public"})
-})
-
-const httpServer = app.listen(port, () => {
+// Start server
+server.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
+  console.log(`WebSocket server is ready`);
 });
-
-setupWebSocket(httpServer);
-

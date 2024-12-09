@@ -30,31 +30,42 @@ export default function Login() {
     e.preventDefault();
     setError('');
     setLoading(true);
+    
+    const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
+    console.log('Attempting authentication at endpoint:', endpoint);
+    console.log('Form data being sent:', formData);
   
     try {
-      const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
-      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      const response = await fetch(`http://localhost:4000${endpoint}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
-        credentials: 'include',
       });
-  
+    
+      console.log('Response status:', response.status);
       const data = await response.json();
-      console.log('Response:', { status: response.status, data });
-  
-      if (response.ok && data.success) {
-        // Add rememberMe to user data before passing to context
-        login({ ...data.user, rememberMe: formData.rememberMe });
-        navigate('/');
+      console.log('Response data:', data);
+    
+      if (data.success) {
+        if (isLogin || data.user) {
+          console.log('Authentication successful, user data:', data.user);
+          login(data.user);
+          navigate('/');
+        } else {
+          // If registration successful but no user data, redirect to login
+          console.log('Registration successful, redirecting to login');
+          setIsLogin(true);
+          setError('Registration successful! Please log in.');
+        }
       } else {
-        setError(data.message || 'Authentication failed');
+        console.log('Authentication failed:', data.message);
+        setError(data.message);
       }
     } catch (error) {
-      console.error('Connection error:', error);
-      setError('Failed to connect to server. Please try again.');
+      console.error('Authentication error:', error);
+      setError('Failed to connect to server');
     } finally {
       setLoading(false);
     }

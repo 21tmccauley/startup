@@ -1,45 +1,77 @@
-// service/websocket.js
 import { WebSocketServer } from 'ws';
-import { createServer } from 'http';
 import { parse } from 'url';
 
 function setupWebSocket(httpServer) {
   const wss = new WebSocketServer({ noServer: true });
   
-  // Track connected clients
-  const clients = new Set();
+  // Track connected clients and their usernames
+  const clients = new Map();
+
+  function broadcastMessage(message) {
+    clients.forEach((username, client) => {
+      if (client.readyState === 1) { // WebSocket.OPEN
+        client.send(JSON.stringify(message));
+      }
+    });
+  }
+
+  function updateUserList() {
+    const userList = Array.from(clients.values());
+    broadcastMessage({
+      type: 'user_list',
+      users: userList
+    });
+  }
 
   // Handle new connections
-  wss.on('connection', (ws) => {
-    clients.add(ws);
-    console.log('Client connected');
+  wss.on('connection', (ws, request) => {
+    console.log('New client connected');
+    
+    // Initially set as anonymous
+    clients.set(ws, 'Anonymous');
+    updateUserList();
 
-    ws.on('message', async (data) => {
+    ws.on('message', (data) => {
       try {
         const message = JSON.parse(data);
-        
-        // Broadcast message to all connected clients
-        clients.forEach((client) => {
-          if (client.readyState === 1) {
-            client.send(JSON.stringify({
+        console.log('Received message:', message);
+
+        switch (message.type) {
+          case 'user_connected':
+            clients.set(ws, message.user);
+            updateUserList();
+            break;
+
+          case 'chat':
+            broadcastMessage({
               type: 'chat',
               data: {
                 user: message.user,
                 message: message.message,
                 timestamp: new Date().toLocaleTimeString()
               }
-            }));
-          }
-        });
-
+            });
+            break;
+        }
       } catch (error) {
         console.error('Error processing message:', error);
+        ws.send(JSON.stringify({
+          type: 'error',
+          message: 'Failed to process message'
+        }));
       }
     });
 
     ws.on('close', () => {
-      clients.delete(ws);
       console.log('Client disconnected');
+      clients.delete(ws);
+      updateUserList();
+    });
+
+    ws.on('error', (error) => {
+      console.error('WebSocket error:', error);
+      clients.delete(ws);
+      updateUserList();
     });
   });
 

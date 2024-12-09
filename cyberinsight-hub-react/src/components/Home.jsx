@@ -66,11 +66,22 @@ export default function Home() {
     setLoading(true);
     setConnectionError(null);
     setConnectionStatus(null);
-
+  
     try {
-      const response = await fetch(`${API_BASE_URL}/api/test`);
+      console.log('Initiating connection test...');
+      const response = await fetch('/api/test', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      console.log('Response status:', response.status);
+      console.log('Response headers:', [...response.headers.entries()]);
+      
       const data = await response.json();
-
+      console.log('Response data:', data);
+  
       if (data.success) {
         setConnectionStatus('connected');
       } else {
@@ -78,6 +89,7 @@ export default function Home() {
         setConnectionStatus('error');
       }
     } catch (err) {
+      console.error('Connection test error:', err);
       setConnectionError(err.message);
       setConnectionStatus('error');
     } finally {
