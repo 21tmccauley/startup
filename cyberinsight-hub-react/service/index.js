@@ -18,7 +18,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const port = process.argv.length > 2 ? process.argv[2] : 4000;
+const port = process.argv.length > 2 ? process.argv[2] : 4006;
 
 // Middleware
 app.use(cors());
@@ -80,12 +80,9 @@ app.use((_req, res) => {
   res.sendFile('index.html', {root: "public"})
 })
 
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
-
 const httpServer = app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
 
 setupWebSocket(httpServer);
+
