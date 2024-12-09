@@ -1,4 +1,4 @@
-import express from 'express';
+import express from 'express';  // Make sure express is imported
 import cors from 'cors';
 import { fileURLToPath } from 'url';
 import path from 'path';
@@ -6,13 +6,11 @@ import { MongoClient } from 'mongodb';
 import config from './dbConfig.json' assert { type: 'json' };
 import testConnection from './api/test.js';
 import setupWebSocket from './websocket.js'
-//import testConnection from './api/test.js';
 
 // Import routes
 import authRoutes from './api/auth.js';
 import postRoutes from './api/posts.js';
 import chatRoutes from './api/chat.js';
-
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -20,8 +18,36 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
-// Middleware
-app.use(cors());
+// Add middleware to log all incoming requests
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+  next();
+});
+
+// Configure CORS with logging
+const corsOptions = {
+  origin: function(origin, callback) {
+    const allowedOrigins = ['http://localhost:5173', 'https://startup.tatemccauley.click'];
+    console.log('Request origin:', origin);
+    
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      console.log('Origin not allowed:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
+
+// Remove any other CORS middleware or headers in route handlers
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 

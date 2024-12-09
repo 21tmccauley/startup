@@ -8,11 +8,15 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://localhost:4000',
+        target: process.env.NODE_ENV === 'development' 
+          ? 'http://localhost:4000'
+          : 'https://startup.tatemccauley.click',
         changeOrigin: true,
       },
       '/ws': {
-        target: 'ws://localhost:4000',
+        target: process.env.NODE_ENV === 'development'
+          ? 'ws://localhost:4000'
+          : 'wss://startup.tatemccauley.click',
         ws: true,
       }
     }
