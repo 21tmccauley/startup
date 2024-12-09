@@ -35,7 +35,7 @@ export default function Login() {
     console.log('Authentication attempt:', { endpoint, formData });
   
     try {
-      const response = await fetch(`http://localhost:4000${endpoint}`, {
+      const response = await fetch(`${API_BASE_URL}${endpoint}`, {  // Changed this line
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
