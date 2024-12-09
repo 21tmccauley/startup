@@ -18,7 +18,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const port = process.argv.length > 2 ? process.argv[2] : 4006;
+const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
 // Middleware
 app.use(cors());
