@@ -32,8 +32,7 @@ export default function Login() {
     setLoading(true);
     
     const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
-    console.log('Attempting authentication at endpoint:', endpoint);
-    console.log('Form data being sent:', formData);
+    console.log('Authentication attempt:', { endpoint, formData });
   
     try {
       const response = await fetch(`http://localhost:4000${endpoint}`, {
@@ -44,27 +43,18 @@ export default function Login() {
         body: JSON.stringify(formData),
       });
     
-      console.log('Response status:', response.status);
       const data = await response.json();
-      console.log('Response data:', data);
+      console.log('Auth response:', data);
     
       if (data.success) {
-        if (isLogin || data.user) {
-          console.log('Authentication successful, user data:', data.user);
-          login(data.user);
-          navigate('/');
-        } else {
-          // If registration successful but no user data, redirect to login
-          console.log('Registration successful, redirecting to login');
-          setIsLogin(true);
-          setError('Registration successful! Please log in.');
-        }
+        console.log('Setting user data:', data.user);
+        login(data.user);
+        navigate('/');
       } else {
-        console.log('Authentication failed:', data.message);
         setError(data.message);
       }
     } catch (error) {
-      console.error('Authentication error:', error);
+      console.error('Auth error:', error);
       setError('Failed to connect to server');
     } finally {
       setLoading(false);

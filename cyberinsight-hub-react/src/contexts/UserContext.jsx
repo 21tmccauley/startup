@@ -1,25 +1,18 @@
-// src/contexts/UserContext.js
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 const UserContext = createContext();
 
 export function UserProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-    setLoading(false);
-  }, []);
+  const [user, setUser] = useState(() => {
+    // Check localStorage for existing user data
+    const savedUser = localStorage.getItem('user');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+  const [loading, setLoading] = useState(false);
 
   const login = (userData) => {
     setUser(userData);
-    if (userData.rememberMe) {
-      localStorage.setItem('user', JSON.stringify(userData));
-    }
+    localStorage.setItem('user', JSON.stringify(userData));
   };
 
   const logout = () => {
