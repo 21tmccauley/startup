@@ -21,11 +21,7 @@ const port = process.argv.length > 2 ? process.argv[2] : 4000;
 const server = createServer(app);
 
 // Create WebSocket server
-const wss = new WebSocketServer({ 
-  server,
-  // Add this option to handle potential connection issues
-  clientTracking: true
-});
+const wss = new WebSocketServer({ server });
 
 // Track connected clients and their usernames
 const clients = new Map();
@@ -107,12 +103,12 @@ wss.on('connection', (ws) => {
   });
 });
 
-// Configure CORS - Update the origins to include the non-secure version
+// Configure CORS
 const corsOptions = {
   origin: [
     'http://localhost:5173', 
     'https://startup.tatemccauley.click',
-    'http://startup.tatemccauley.click'  // Add this line
+    'http://startup.tatemccauley.click'
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true,
@@ -123,7 +119,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Add the missing stats endpoint
+// Add the stats endpoint
 app.get('/api/stats', (req, res) => {
   res.json({
     success: true,
@@ -139,6 +135,13 @@ app.get('/api/stats', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/chat', chatRoutes);
+
+// Catch-all route for React routing
+app.get('*', (req, res) => {
+  if (!req.url.startsWith('/api/')) {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  }
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
