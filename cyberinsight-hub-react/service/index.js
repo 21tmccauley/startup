@@ -6,6 +6,7 @@ import { MongoClient } from 'mongodb';
 import config from './dbConfig.json' assert { type: 'json' };
 import testConnection from './api/test.js';
 import setupWebSocket from './websocket.js'
+//import testConnection from './api/test.js';
 
 // Import routes
 import authRoutes from './api/auth.js';
