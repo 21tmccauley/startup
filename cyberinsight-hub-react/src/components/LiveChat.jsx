@@ -11,24 +11,32 @@ export default function LiveChat() {
   const reconnectTimeoutRef = useRef(null);
 
   const getWebSocketUrl = () => {
-    // For local development
     if (window.location.hostname === 'localhost') {
       return 'ws://localhost:4000';
     }
-    
-    // For production on EC2
-    return 'ws://startup.tatemccauley.click:4000';
+
+    // Redirect to HTTP if currently on HTTPS
+    if (window.location.protocol === 'https:') {
+      window.location.href = window.location.href.replace('https://', 'http://');
+      return null;
+    }
+
+    // Use regular ws:// since we're now on HTTP
+    return `ws://${window.location.hostname}:4000`;
   };
 
   const connectWebSocket = () => {
     try {
+      const wsUrl = getWebSocketUrl();
+      // If we're redirecting, don't try to connect
+      if (!wsUrl) return;
+
+      console.log('Attempting WebSocket connection to:', wsUrl);
+      
       if (wsRef.current) {
         wsRef.current.close();
       }
 
-      const wsUrl = getWebSocketUrl();
-      console.log('Attempting WebSocket connection to:', wsUrl);
-      
       wsRef.current = new WebSocket(wsUrl);
 
       wsRef.current.onopen = () => {
@@ -66,10 +74,6 @@ export default function LiveChat() {
             case 'user_list':
               setOnlineUsers(data.users);
               break;
-              
-            case 'error':
-              console.error('WebSocket error:', data.message);
-              break;
           }
         } catch (error) {
           console.error('Error processing message:', error);
@@ -80,7 +84,6 @@ export default function LiveChat() {
         console.log('WebSocket Disconnected');
         setIsConnected(false);
         
-        // Attempt to reconnect after 3 seconds
         reconnectTimeoutRef.current = setTimeout(() => {
           console.log('Attempting to reconnect...');
           connectWebSocket();
@@ -98,7 +101,7 @@ export default function LiveChat() {
 
   useEffect(() => {
     connectWebSocket();
-
+    
     return () => {
       if (reconnectTimeoutRef.current) {
         clearTimeout(reconnectTimeoutRef.current);
