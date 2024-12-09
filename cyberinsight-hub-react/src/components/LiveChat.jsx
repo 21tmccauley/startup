@@ -10,16 +10,23 @@ export default function LiveChat() {
   const wsRef = useRef(null);
   const reconnectTimeoutRef = useRef(null);
 
+  const getWebSocketUrl = () => {
+    // For local development
+    if (window.location.hostname === 'localhost') {
+      return 'ws://localhost:4000';
+    }
+    
+    // For production on EC2
+    return 'ws://startup.tatemccauley.click:4000';
+  };
+
   const connectWebSocket = () => {
     try {
-      // Clear any existing connection
       if (wsRef.current) {
         wsRef.current.close();
       }
 
-      // Create new WebSocket connection
-      const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-      const wsUrl = `${wsProtocol}//${window.location.hostname}:4000`;
+      const wsUrl = getWebSocketUrl();
       console.log('Attempting WebSocket connection to:', wsUrl);
       
       wsRef.current = new WebSocket(wsUrl);
@@ -28,13 +35,11 @@ export default function LiveChat() {
         console.log('WebSocket Connected');
         setIsConnected(true);
         
-        // Clear any reconnection timeout
         if (reconnectTimeoutRef.current) {
           clearTimeout(reconnectTimeoutRef.current);
           reconnectTimeoutRef.current = null;
         }
         
-        // Send user info when connected
         if (user) {
           wsRef.current.send(JSON.stringify({
             type: 'user_connected',

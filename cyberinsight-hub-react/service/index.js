@@ -21,7 +21,11 @@ const port = process.argv.length > 2 ? process.argv[2] : 4000;
 const server = createServer(app);
 
 // Create WebSocket server
-const wss = new WebSocketServer({ server });
+const wss = new WebSocketServer({ 
+  server,
+  // Add this option to handle potential connection issues
+  clientTracking: true
+});
 
 // Track connected clients and their usernames
 const clients = new Map();
@@ -49,6 +53,13 @@ wss.on('connection', (ws) => {
   // Initially set as anonymous
   clients.set(ws, 'Anonymous');
   updateUserList();
+
+  // Add a ping to keep connection alive
+  const pingInterval = setInterval(() => {
+    if (ws.readyState === 1) {
+      ws.ping();
+    }
+  }, 30000);
 
   ws.on('message', (data) => {
     try {
@@ -83,20 +94,26 @@ wss.on('connection', (ws) => {
 
   ws.on('close', () => {
     console.log('Client disconnected');
+    clearInterval(pingInterval);
     clients.delete(ws);
     updateUserList();
   });
 
   ws.on('error', (error) => {
     console.error('WebSocket error:', error);
+    clearInterval(pingInterval);
     clients.delete(ws);
     updateUserList();
   });
 });
 
-// Configure CORS
+// Configure CORS - Update the origins to include the non-secure version
 const corsOptions = {
-  origin: ['http://localhost:5173', 'https://startup.tatemccauley.click'],
+  origin: [
+    'http://localhost:5173', 
+    'https://startup.tatemccauley.click',
+    'http://startup.tatemccauley.click'  // Add this line
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization']
@@ -105,6 +122,18 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Add the missing stats endpoint
+app.get('/api/stats', (req, res) => {
+  res.json({
+    success: true,
+    stats: {
+      members: 150,
+      discussions: 45,
+      articles: 23
+    }
+  });
+});
 
 // Routes
 app.use('/api/auth', authRoutes);
