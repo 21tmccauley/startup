@@ -187,8 +187,130 @@ A:
 2. Q: Can a DNS A record point to an IP address or another A record?
    A: A DNS A record can only point to an IP address, not to another A record.
 
-3. Q: Which protocols are associated with the following ports?
-   A:
-   - 443: HTTPS
-   - 80: HTTP
-   - 22: SSH
+
+
+
+
+
+
+
+# CS 260 Final Exam Study Guide
+
+## Web Protocols & Ports
+### Default Ports
+- HTTP: Port 80 (Unsecure web traffic)
+- HTTPS: Port 443 (Secure web traffic)
+- SSH: Port 22 (Secure shell)
+
+### HTTP Status Codes
+- 300-399: Redirection messages
+  - The requested resource has moved or requires additional action
+- 400-499: Client-side errors
+  - Bad requests, unauthorized access, not found (404)
+- 500-599: Server-side errors
+  - Internal server errors, service unavailable
+
+### HTTP Headers
+- Content-Type
+  - Specifies the media type of the resource
+  - Examples: application/json, text/html, image/jpeg
+  - Helps browsers interpret and render content correctly
+
+### Cookies
+- Secure Cookie
+  - Only transmitted over HTTPS
+  - Provides protection against man-in-the-middle attacks
+- HttpOnly Cookie
+  - Cannot be accessed by client-side JavaScript
+  - Protects against XSS attacks
+- SameSite Cookie
+  - Controls cookie behavior in cross-site requests
+  - Options: Strict, Lax, None
+
+## Express & Backend
+### Express Middleware
+- Processes requests between receiving them and sending response
+- Can modify request/response objects
+- Common uses: logging, authentication, error handling
+
+### MongoDB
+- Document-based NoSQL database
+- Query syntax uses JSON-like objects
+- Basic query example: `{name: "Mark"}` finds documents where name equals "Mark"
+
+### Password Security
+- Never store plain text passwords
+- Use strong hashing algorithms (e.g., bcrypt)
+- Include salt for additional security
+- Store hash + salt, never the original password
+
+## WebSockets
+### Purpose
+- Provides full-duplex communication
+- Maintains persistent connection
+- Real-time bidirectional data flow
+- More efficient than HTTP for real-time features
+
+## Common Acronyms
+- JSX: JavaScript XML (React's syntax extension)
+- JS: JavaScript
+- AWS: Amazon Web Services
+- NPM: Node Package Manager
+- NVM: Node Version Manager
+
+## React Concepts
+### Components
+- Building blocks of React applications
+- Can accept props as parameters
+- Return JSX describing UI elements
+
+### React Hooks
+- useState
+  - Manages component state
+  - Returns state value and setter function
+- useContext
+  - Accesses React Context
+  - Shares data without prop drilling
+- useRef
+  - Persists values between renders
+  - Doesn't trigger re-renders when changed
+- useEffect
+  - Handles side effects
+  - Manages component lifecycle
+- Performance Hooks
+  - useMemo: Memoizes computed values
+  - useCallback: Memoizes functions
+
+### React Router
+- Enables client-side routing
+- Manages navigation without page reloads
+- Components: BrowserRouter, Route, Link
+
+## Development Tools
+### package.json
+- Lists project dependencies
+- Defines scripts
+- Contains project metadata
+
+### Fetch API
+- Makes HTTP requests
+- Promises-based API
+- Supports various HTTP methods
+- Can handle different data types
+
+### Node.js
+- JavaScript runtime environment
+- Runs JavaScript outside browser
+- Enables server-side development
+
+### PM2
+- Process Manager for Node.js
+- Manages application state
+- Handles logs, monitoring
+- Enables zero-downtime reloads
+
+### Vite
+- Modern frontend build tool
+- Fast development server
+- Efficient production builds
+- Supports React and other frameworks
